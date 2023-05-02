@@ -7,5 +7,4 @@ public class BoardType {
 	
 	private String boardCd;
 	private String boardName;
-	
 }

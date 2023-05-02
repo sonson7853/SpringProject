@@ -18,35 +18,35 @@
 	
 	<!-- 
 		주소 자동완성 도구
-		매번 같은주소(/WEB-INF/view/)를 추가해야하기 때문에 자동완성이 기본적으로 등록되어있음
-		- view resolver라는 도구를 등록(spring제공)
-	 	- class : InternalResourceViewResolver
-	 	- prefix : 접두어 / suffix : 접미어
-	 	- return할 파일명을 제시하는 부분에 접두어 , 접미어를 붙여서 forward하겠다.
+		매번 같은주소(/WEB-INF/views/)를 추가해야하기 때문에 자동완성이 기본적으로 등록되어있음
+		- view resolver라는 도구를 등록(spring 제공)
+		- class : InternalResourceViewResolver
+		- prefix : 접두어 / suffix : 접미어
+		- return할 파일명을 제시하는 부분에 접두어, 접미어를 붙여서 forward 하겠다.
 	 -->
-	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	
 	<!-- 
-		base-package에 등록된 패키지와 그 하위 패키지 모두 감시(scan)해서 빈으로 등록가능한 클래스들은 spring-bean
-		로 등록해둠
+		base-package에 등록된 패키지와 그 하위 패키지 모두 감시(scan)해서 빈으로 등록가능한 클래스들은 spring-bean으로 등록해줌
 	 -->
+	
 	<context:component-scan base-package="com.kh.spring" />
 	
 	<!-- 
-		Interceptor : 컨트롤러에 요청이 들어가 전/후를 나눠서 인터셉터가 중간에 요청을 가로챔.
-						스프링의 모든 빈객체에 접근이 가능하며, 일반적으로 로그인체크, 권한체크, 프로그램실행시간체크 등에 사용된다.
-							
+		Interceptor : 컨트롤러에 요청이 들어가기 전/후를 나눠서 인터셉터가 중간에 요청을 가로챔.
+					  스프링의 모든 빈객체에 접근이 가능하며, 일반적으로 로그인체크, 권한체크, 프로그램실행시간체크등에 사용된다.	
 	 -->
-	 <mvc:interceptors>
-	 	<mvc:interceptor>
-	 		<mvc:mapping path="/**"/>
-	 			<beans:bean class="com.kh.spring.common.interceptor.BoardTypeInterceptor"/>
-	 	</mvc:interceptor>
-	 </mvc:interceptors>
-	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<beans:bean class="com.kh.spring.common.interceptor.BoardTypeInterceptor">
+				
+			</beans:bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 </beans:beans>

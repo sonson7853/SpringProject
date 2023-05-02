@@ -82,14 +82,14 @@
                     
                     <div class="login-area">
                            <!-- 회원 프로필 이미지 -->
-                       <a href="${contextPath }/member/myPage/profile">
+                       <a href="${contextPath}/member/myPage/profile">
                                
                                <c:if test="${empty loginUser.profileImage}">
-                                   <img src="<%= request.getContextPath() %>/resources/images/user.jpg" id="member-profile">
+                                   <img src="${contextPath}/resources/images/user.jpg" id="member-profile">
                                </c:if>
 
                                <c:if test="${!empty loginUser.profileImage}">
-                                   <img src="<%= request.getContextPath() %>${loginUser.profileImage}" id="member-profile">
+                                   <img src="${contextPath}${loginUser.profileImage}" id="member-profile">
                                </c:if>
 
                        </a>
@@ -97,7 +97,7 @@
                            <!-- 회원 정보 + 로그아웃 버튼 -->                                       
                            <div class="my-info">
                                <div>
-<%--                                <a href="${contextPath}/member/myPage/info" id="nickname">루피</a> --%>
+                              <%--  <a href="${contextPath}/member/myPage/info" id="nickname">루피</a> --%>
                                    <a href="${contextPath}/member/myPage/info" id="nickname">${empty loginUser.nickName ? '루피':loginUser.nickName}</a>
 
                                    <a href="${contextPath}/member/logout" id="logout-btn">로그아웃</a>
@@ -121,10 +121,8 @@
 
     <!-- jQuery 라이브러리 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	
-	<!-- main.js 연결 -->
-	<script src="${contextPath}/resources/js/main/main.js"></script>
-		
-	
+   
+      <!-- main.js 연결 -->
+      <script src="${contextPath}/resources/js/main/main.js"></script>
 </body>
 </html>

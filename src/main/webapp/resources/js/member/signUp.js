@@ -20,8 +20,60 @@ const checkObj = {
 };
 
 // 아이디 유효성 검사
+/*
+const userId = document.getElementById("userId");
+const emailMessage = document.querySelector("#emailMessage");
+userId.addEventListener("input", function(){
+
+    // 입력이 되지 않은 경우
+    if( userId.value.length == 0 ){
+        emailMessage.innerText = "아이디로 사용할 이메일을 입력해주세요.";
+        emailMessage.classList.remove("confirm", "error");
+
+        checkObj.userId = false; // 유효 X 기록
+        return;
+    }
+    // 입력된 경우
+    const regExp = /^[\w\-\_]{4,}@[\w\-\_]+(\.\w+){1,3}$/; 
+
+    if( regExp.test(userId.value) ){ // 유효한 경우
+        $.ajax({
+            url : "idCheck",   
+            //  필수 속성 url
+            // 현재 주소 : /spring/member/insert
+            // 상대 경로 : /spring/member/ +  idCheck
+            data : { "userId" : userId.value },
+            type : "GET", // 데이터 전달 방식 type
+            success : function(result){
+                if(result == 1){ // 중복 O
+                    emailMessage.innerText = "이미 사용중인 아이디(이메일) 입니다.";
+                    emailMessage.classList.add("error");
+                    emailMessage.classList.remove("confirm");
+                    checkObj.userId = false; // 유효 X 기록
+
+                } else { // 중복 X
+                    emailMessage.innerText = "사용 가능한 아이디(이메일) 입니다.";
+                    emailMessage.classList.add("confirm");
+                    emailMessage.classList.remove("error");
+                    checkObj.userId = true; // 유효 O 기록
+                }
+            },
+            
+            error : function(req, status, error){
+                console.log(req.responseText);
+            }
+        });
+    }else{
+        emailMessage.innerText = "이메일 형식이 유효하지 않습니다.";
+        emailMessage.classList.add("error");
+        emailMessage.classList.remove("confirm");
+
+        checkObj.userId = false; // 유효 X 기록
+    }
+});
 
 
+*/
 // 비밀번호 유효성 검사
 const userPwd = document.getElementById("userPwd");
 const userPwdConfirm = document.getElementById("userPwdConfirm");

@@ -108,7 +108,6 @@ div {box-sizing:border-box;}
        				<c:if test="${ empty sessionScope.loginUser}"> 
             			<a data-toggle="modal" data-target="#loginModal">로그인</a>
             			<span>|</span>
-            			<!-- a태그 get방식 -->
             			<a href="<%= request.getContextPath() %>/member/insert">회원가입</a>
             			<span>|</span>
 	                    <a href="#">ID/PW 찾기</a>

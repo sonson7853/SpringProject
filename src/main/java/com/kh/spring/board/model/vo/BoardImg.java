@@ -8,7 +8,7 @@ public class BoardImg {
 	private int boardImgNo;
 	private String originName;
 	private String changeName;
-	private int imgLevel;
 	private int refBno;
+	private int imgLevel;
 	
 }
