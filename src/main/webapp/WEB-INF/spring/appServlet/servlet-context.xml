@@ -4,9 +4,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -43,10 +47,48 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<beans:bean class="com.kh.spring.common.interceptor.BoardTypeInterceptor">
-				
-			</beans:bean>
+				<beans:bean class="com.kh.spring.common.interceptor.BoardTypeInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+				<beans:bean class="com.kh.spring.common.interceptor.LoggingInterceptor"/>
+		</mvc:interceptor>	
 	</mvc:interceptors>
 	
+	<!-- 인터셉터특징
+		1. Interceptor는 dispatcherServlet이 controller를 호출하기 전/후로 끼어들기 때문에
+		controller에 전달하기전인 Request와 response의 데이터를 처리하기에 좋고, application전역에 사용하는
+		객체에 대한 설정을 하기에도 좋음.
+		
+		2. AOP
+		스프링 요청/응답 흐름
+		
+		요청(reqeust) -> Filter -> DispatcherServlet(HandlerMapping) -> Interceptor -> Controller -> AOP -> SERVICE -> DAO -> DB
+		
+		응답           <- Filter <- DispatcherServlet(ViewResolver) <- Intercepotr <- Controller <- AOP <- SERVICE <- DAO <- DB 
+	 -->
+	
+	<!--
+	 트랜젝션처리 시 필요한 @Transactional 어노테이션 활성화 시키기 
+	 @Transactional : 클래스 혹은 메소드 수행후 트랜젝션을 처리하라고 알려주는 어노테이션	
+	-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- webSocket요청시 핸들러 클래스와 연결하기 -->
+	<beans:bean id="chatHandler" class="com.kh.spring.chat.model.websocket.ChatWebsocketHandler"/>
+	
+	<websocket:handlers>
+		<!-- 웹소켓 요청시 요청주소를 처리할 bean객체 지정 -->
+		<websocket:mapping handler="chatHandler" path="/chat"/>
+		<websocket:handshake-interceptors>
+			<!-- 
+				interceptor : http통신에서 request와 response를 가로채는 역할 			
+				handshake-interceptores : 요청 관련 데이터중 httpSession정보를 가로채서 webScoketSession안에 넣어줌
+			 -->
+			 <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		
+		<!-- SocketJS라이브러리를 이용해서 만들어진 웹소켓 객체임을 의미 -->
+		<websocket:sockjs/>
+	</websocket:handlers>
 </beans:beans>
