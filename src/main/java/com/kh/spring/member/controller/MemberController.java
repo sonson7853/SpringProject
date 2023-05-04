@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -330,6 +331,7 @@ public class MemberController {
 		return new Gson().toJson(list);
 	}
 	
+	
 	/*
 	 * 스프링 예외 처리 방법 (3가지, 중복사용가능)
 	 * 
@@ -337,7 +339,6 @@ public class MemberController {
 	 * 2순위 : 하나의 컨트롤러에서 발생하는 예외를 싹 모아서 처리 -> @ExceptionHandler
 	 * 3순위 : 웹 어플리케이셔녀 전역에서 발생하는 예외를 다 모아서 처리 -> @ControllerAdvice
 	 */
-	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e, Model model) {
 		e.printStackTrace();
@@ -348,7 +349,20 @@ public class MemberController {
 		return "common/errorPage";
 	}
 	
+	
+	
+	//고정방식(spring-scheduler)
+	int count = 0;
+	@Scheduled(fixedDelay = 1000)
+	public void test() {
+		System.out.println("1초마다 출력하기" + count++);
+	}
 
+	//crontab방식
+	public void testCron() {
+		
+		System.out.println("크론 테스트");
+	}
 	
 	
 	

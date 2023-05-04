@@ -91,4 +91,49 @@
 		<!-- SocketJS라이브러리를 이용해서 만들어진 웹소켓 객체임을 의미 -->
 		<websocket:sockjs/>
 	</websocket:handlers>
+	
+	<!-- 
+		HandlerMapping을 통해서 어떤 url로 요청했을 때 어떤 controller가 구동될것인지를 알아내야함.
+		
+	 1. 요청때마다 실행될 controlle들을 bean으로 등록시켜두기
+	 <beans:bean class="com.kh.spring.board.controller.BoardController" id="loginController"/>
+	 <beans:bean class="com.kh.spring.board.controller.BoardController" id="loginController"/>
+	 <beans:bean class="com.kh.spring.board.controller.BoardController" id="loginController"/>
+	 <beans:bean class="com.kh.spring.board.controller.BoardController" id="loginController"/>
+	 <beans:bean class="com.kh.spring.board.controller.BoardController" id="loginController"/>
+	 ...(등록할 컨트롤러 개수만큼 bean을 등록시켜줘야함)	 
+	 	
+	 2. 어떤 url로 요청이 들어온것을 처리할것인지 매핑시켜줘야함.
+	 <beans:bean class="org.springframework.web.srevlet.handler.simpleUrlHandlerMapping">
+	 	<bean:property name="mappings">
+	 		<bean:prop key="login">memberController</bean:prop>
+	 		<bean:prop key="insert">memberController</bean:prop>
+	 	</bean:property>
+	 </beans:bean>
+	 
+	 위와 같은 방식으로 xml로 빈을 등록을 한다면, bean개수가 너무많아지면 관리가 어려워짐.
+	 또한, 여러개발자가 같은 xml파일을 수정하면 충돌이 쉽게 살행할 수 있음.
+	 
+	 장점 : xml문서내에 한문으로 볼수있기때문에 관리의 편의성이 높음
+	 
+	 * 어노테이션방식
+	 -component-scan에서 지정한 패키지명(com.kh.spring)의 하위모든 클래스를 스캔하여
+	 @Controller와 같은 MVC어노테이션이 붙은 클래스를 자동으로 BEAN으로 등록해주는 방식
+	 @Service
+	 @Repository
+	 ...
+	 
+	 단 내가 직접만든 클래스가 아닐경우(spring에서 제공하는 클래스이거나 컴파일된 class경우)
+	 소스코드 내부를 수정할 수 없기때문에, 코드에 어노테이션을 붙힐 수없다.따라서 이경우에는 xml방식으로 bean을
+	 등록시켜줘야함.	
+	 -->
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 </beans:beans>
