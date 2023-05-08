@@ -30,7 +30,11 @@
 		<result column="BOARD_CONTENT" property = "boardContent"/>
 		<result column="USER_NO" property="userNo"/>
 		<result column="PROFILE_IMG" property="profileImage"/>
-		<collection property="imgList" javaType="java.util.ArrayList" ofType="boardImg" select="selectImgList" column="BOARD_NO"/>
+		
+		<!-- 방법1 -->
+	 	<collection property="imgList" javaType="java.util.ArrayList" ofType="boardImg" select="selectImgList" column="BOARD_NO"/>
+		
+		
 		<!-- 
 			selectImgList의 조회결과를 Board VO클래스의 imgList필드에 담겠다라는 의미
 			-> imgList에 담기위한 ArrayList<BoardImg>객체를 생성하겠다.
@@ -42,6 +46,10 @@
 			게시글 상세조회 후 BoardDetailResultSet이 호출되었을때 상세조회 결과중 BOARD_NO를 이용해서 selectImgList를 수행하고
 			결과를 imgList필드에 세팅하겠다.
 		 -->
+		 
+		 <!-- 방법 2 -->
+		 <!-- <collection property="imgList" resultMap="boardDetailResultSet"/> -->
+		 
 	</resultMap>
 	
 	<resultMap type="boardImg" id="boardImgResultSet">
@@ -133,7 +141,7 @@
 			 , TO_CHAR(B.CREATE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') CREATE_DATE
 		  FROM BOARD B
 		  JOIN MEMBER M ON M.USER_NO = B.BOARD_WRITER
-	 <!-- LEFT JOIN BOARD_IMG BI ON B.BOARD_NO = BI.REF_BNO -->
+	      LEFT JOIN BOARD_IMG BI ON B.BOARD_NO = BI.REF_BNO 
 	     WHERE BOARD_NO = #{boardNo}	
 	</select>
 	
@@ -205,4 +213,9 @@
 		 WHERE REF_BNO = #{boardNo}
 		   AND IMG_LEVEL IN (${deleteList}) <!-- 0,1,2,3 -->
 	</delete>
+	
+	<select id="selectFileList" resultType="string">
+		SELECT CHANGE_NAME
+		  FROM BOARD_IMG
+	</select>
 </mapper>

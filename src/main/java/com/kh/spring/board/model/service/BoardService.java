@@ -25,4 +25,5 @@ public interface BoardService {
 	
     public int updateBoard(Board b, List<MultipartFile> imgList, String webPath, String serverFolderPath, String deleteList) throws Exception;
     
+    public List<String> selectFileList();
 }

@@ -195,7 +195,10 @@ public class BoardServiceImp implements BoardService{
 		return result;
 	}
 							
-	
+	public List<String> selectFileList(){
+		
+		return boardDao.selectFileList();
+	}
 	
 
 }

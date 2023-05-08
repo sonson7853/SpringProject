@@ -257,7 +257,7 @@
 			<version>2.14.2</version>
 		</dependency>
 
-		<!-- Spring quartz -->
+		<!-- Spring quartz 시작-->
 		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -270,6 +270,14 @@
 			<artifactId>quartz-jobs</artifactId>
 			<version>2.3.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- Spring quarts 끝 -->
+
 
 	</dependencies>
 
