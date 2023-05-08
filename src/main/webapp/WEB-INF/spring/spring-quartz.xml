@@ -50,7 +50,7 @@
 	  
 	  <bean id="jobTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 	  	<property name="jobDetail" ref="job2"/>
-	  	<property name="cronExpression" value="0/5 * * 1/1/ * ? *"/>
+	  	<property name="cronExpression" value="0 * * 1/1 * ? *"/>
 	  </bean>
 	  
 	  <!-- Scheduler

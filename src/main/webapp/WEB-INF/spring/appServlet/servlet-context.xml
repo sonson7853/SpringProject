@@ -6,10 +6,12 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -60,12 +62,25 @@
 		controller에 전달하기전인 Request와 response의 데이터를 처리하기에 좋고, application전역에 사용하는
 		객체에 대한 설정을 하기에도 좋음.
 		
-		2. AOP
+		2. AOP는 주로 트랜잭션처리(@Transactional), 로깅처리등 비즈니스단의 메서드에서 더 세밀하게 조정하고 싶을때 사용하면됨.
+		
+		인터셉터와 aop를 종합해보면, 
+		컨트롤러에 공통적으로 적용할 부가기능이라면 핸들러 인터셉터는 이용하는게 좋고,
+		더 세밀하게 조정하고싶다면 AOP를 사용하는게 좋음.
+		
 		스프링 요청/응답 흐름
 		
 		요청(reqeust) -> Filter -> DispatcherServlet(HandlerMapping) -> Interceptor -> Controller -> AOP -> SERVICE -> DAO -> DB
 		
 		응답           <- Filter <- DispatcherServlet(ViewResolver) <- Intercepotr <- Controller <- AOP <- SERVICE <- DAO <- DB 
+	 -->
+	
+	<aop:aspectj-autoproxy proxy-target-class="false"/>
+	<!-- 
+		proxy-target-class : 프록시라는 객체를 생성할때, interface or class로 프록시 객체를 생성할지를 정하는 구문임
+		기본값 : true -> 프록시 객체를 생성시 클래스로 만들어줌.
+		일반적으로 프록시 객체는 자바에서 기본적으로 제공하는 다이나믹 프록시 interface로 생성함.
+		클래스로 생성하게 되면 cglib라이브러리를 이용해서 프록시 객체를 생성하는데 이슈가 있어서 사용하지 않는걸 권장함.
 	 -->
 	
 	<!--

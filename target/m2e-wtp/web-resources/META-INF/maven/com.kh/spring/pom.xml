@@ -257,7 +257,7 @@
 			<version>2.14.2</version>
 		</dependency>
 
-		<!-- Spring quartz 시작-->
+		<!-- Spring quartz 시작 -->
 		<!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -277,6 +277,20 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<!-- Spring quarts 끝 -->
+
+		<!-- AOP관련 -->
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
 
 
 	</dependencies>
