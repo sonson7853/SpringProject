@@ -11,7 +11,10 @@ public interface ReplyService {
 	
 	//댓글목록조회
 	List<Reply> selectReplyList(int bno);
+	
 	//댓글수정
+	int updateReply(Reply reply);
 	
 	//댓글삭제
+	int deleteReply(int replyNo);
 }

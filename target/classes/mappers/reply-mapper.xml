@@ -4,6 +4,7 @@
 
   <resultMap type="reply" id="replyResultSet">
   	<result column="REPLY_NO" property="replyNo"/>
+  	<result column="USER_NO" property="userNo"/>
   	<result column="REPLY_CONTENT" property="replyContent"/>
   	<result column="REF_BNO" property="refBno"/>
   	<result column="REPLY_WRITER" property="replyWriter"/>
@@ -27,9 +28,23 @@
   </insert>
   
   <select id="selectReplyList" resultMap="replyResultSet">
-  		SELECT REPLY_NO, REPLY_CONTENT, REF_BNO, NICK_NAME AS REPLY_WRITER, R.CREATE_DATE, R.STATUS
+  		SELECT REPLY_NO, REPLY_CONTENT, REF_BNO, NICK_NAME AS REPLY_WRITER, R.CREATE_DATE, R.STATUS, USER_NO
   		  FROM REPLY R
   		  JOIN MEMBER M ON R.REPLY_WRITER = M.USER_NO
   		 WHERE REF_BNO = #{bno} AND R.STATUS='Y'
   </select>
+  
+  <!-- 댓글 삭제기능 -->
+  <update id="deleteReply">
+  		UPDATE REPLY
+  		   SET STATUS = 'N'
+  		 WHERE REPLY_NO = #{replyNo}
+  </update>
+  
+  <!-- 댓글 수정기능 -->
+  <update id="updateReply" parameterType="reply">
+  		UPDATE REPLY
+  		   SET REPLY_CONTENT = #{replyContent}
+  		 WHERE REPLY_NO = #{replyNo}
+  </update>
 </mapper>
